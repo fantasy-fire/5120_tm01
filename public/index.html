@@ -417,6 +417,16 @@
     .hero-banner-inner{ text-align:center; margin:0 auto; }
     .hero-banner p{ margin-left:auto; margin-right:auto; }
     .hero-illustration{ width:200px; order:-1; }
+
+    .topnav{ flex-wrap:nowrap; gap:10px; padding:12px 4vw; }
+    .topnav-brand{ flex-shrink:0; font-size:17px; margin-right:0; }
+    .topnav-tabs{
+      flex:1 1 auto; flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch;
+      gap:4px; scrollbar-width:none;
+    }
+    .topnav-tabs::-webkit-scrollbar{ display:none; }
+    .tab-btn{ flex-shrink:0; padding:8px 12px; font-size:13px; white-space:nowrap; }
+    .lang-toggle{ flex-shrink:0; }
   }
 
   /* ---------- loading screen ---------- */
@@ -461,34 +471,33 @@
   @keyframes loadFill{ from{ width:0%; } to{ width:100%; } }
 
 
-  /* ---------- AI health assistant ---------- */
+  /* ---------- AI Health Assistant ---------- */
   .ai-chat-launcher{
-    position:fixed; right:24px; bottom:24px; z-index:1500;
-    width:58px; height:58px; border:none; border-radius:50%; cursor:pointer;
-    background:var(--maroon); color:#fff; font-size:25px; font-weight:800;
-    box-shadow:0 10px 28px rgba(31,65,102,.30); transition:.2s ease;
+    position:fixed; right:24px; bottom:24px; z-index:2200;
+    width:58px; height:58px; border:none; border-radius:50%;
+    background:var(--maroon); color:#fff; font-size:25px; cursor:pointer;
+    box-shadow:0 10px 28px rgba(31,65,102,.28); display:flex; align-items:center; justify-content:center;
   }
-  .ai-chat-launcher:hover{ background:var(--maroon-dark); transform:translateY(-2px); }
+  .ai-chat-launcher:hover{ background:var(--maroon-dark); transform:translateY(-1px); }
   .ai-chat-panel{
-    position:fixed; right:24px; bottom:94px; z-index:1499;
-    width:min(390px, calc(100vw - 28px)); height:min(610px, calc(100vh - 125px));
-    display:none; flex-direction:column; overflow:hidden;
-    background:#fff; border:1px solid #dfe7ef; border-radius:18px;
-    box-shadow:0 18px 54px rgba(20,44,70,.22);
+    position:fixed; right:24px; bottom:94px; z-index:2200;
+    width:min(390px, calc(100vw - 28px)); height:min(610px, calc(100vh - 130px));
+    background:#fff; border:1px solid #dbe4ee; border-radius:18px;
+    box-shadow:0 18px 50px rgba(0,0,0,.18); overflow:hidden; display:none; flex-direction:column;
   }
   .ai-chat-panel.open{ display:flex; }
   .ai-chat-head{ background:linear-gradient(135deg,var(--maroon),var(--maroon-dark)); color:#fff; padding:16px 17px; display:flex; align-items:center; gap:11px; }
-  .ai-chat-avatar{ width:38px; height:38px; min-width:38px; border-radius:11px; background:rgba(255,255,255,.16); display:flex; align-items:center; justify-content:center; font-size:20px; }
+  .ai-chat-avatar{ width:38px; height:38px; border-radius:11px; background:rgba(255,255,255,.16); display:flex; align-items:center; justify-content:center; font-size:20px; }
   .ai-chat-head-copy{ flex:1; min-width:0; }
   .ai-chat-title{ font-size:15px; font-weight:800; margin-bottom:2px; }
   .ai-chat-status{ font-size:11.5px; color:#dce9f5; }
   .ai-chat-close{ border:none; background:transparent; color:#fff; cursor:pointer; font-size:22px; line-height:1; padding:3px 5px; }
   .ai-chat-notice{ background:#fff8e8; color:#67501d; border-bottom:1px solid #ead7a4; padding:10px 14px; font-size:11.5px; line-height:1.45; }
   .ai-chat-messages{ flex:1; overflow-y:auto; padding:16px; background:#f7f9fb; display:flex; flex-direction:column; gap:11px; }
-  .ai-msg{ max-width:84%; padding:10px 12px; border-radius:13px; font-size:13px; line-height:1.5; white-space:pre-wrap; word-wrap:break-word; }
-  .ai-msg.assistant{ align-self:flex-start; background:#fff; border:1px solid #e2e9f0; color:#263646; border-bottom-left-radius:4px; }
-  .ai-msg.user{ align-self:flex-end; background:var(--maroon); color:#fff; border-bottom-right-radius:4px; }
-  .ai-msg.pending{ color:var(--text-light); font-style:italic; }
+  .ai-msg{ max-width:84%; padding:10px 12px; border-radius:13px; font-size:13.5px; line-height:1.5; white-space:pre-wrap; word-break:break-word; }
+  .ai-msg.bot{ align-self:flex-start; background:#fff; border:1px solid #e6ebf0; color:#27384a; border-bottom-left-radius:5px; }
+  .ai-msg.user{ align-self:flex-end; background:var(--maroon); color:#fff; border-bottom-right-radius:5px; }
+  .ai-msg.typing{ color:var(--text-light); font-style:italic; }
   .ai-chat-chips{ padding:9px 12px 0; display:flex; gap:7px; flex-wrap:wrap; background:#fff; }
   .ai-chat-chip{ border:1px solid #d6e0ea; background:#fff; color:var(--maroon); border-radius:999px; padding:7px 10px; font-size:11.5px; cursor:pointer; }
   .ai-chat-chip:hover{ background:var(--maroon-bg); }
@@ -497,7 +506,7 @@
   .ai-chat-input:focus{ border-color:var(--maroon); box-shadow:0 0 0 3px rgba(46,92,138,.10); }
   .ai-chat-send{ width:43px; border:none; border-radius:10px; background:var(--maroon); color:#fff; cursor:pointer; font-size:17px; }
   .ai-chat-send:disabled{ opacity:.55; cursor:not-allowed; }
-  @media (max-width:700px){
+  @media(max-width:600px){
     .ai-chat-launcher{ right:14px; bottom:14px; }
     .ai-chat-panel{ right:14px; bottom:82px; height:min(620px, calc(100vh - 105px)); }
   }
@@ -1322,39 +1331,12 @@
     document.getElementById('h-rec').textContent = lastResult.recText[currentLang];
   }
 
-  async function saveAssessmentToDatabase(){
-    const payload = {
-      age: Number(document.getElementById('age').value),
-      sex: document.getElementById('sex').value,
-      state: document.getElementById('state').value,
-      smoking: document.getElementById('smoke').value,
-      lastCheck: document.getElementById('lastCheck').value,
-    };
-
-    const res = await fetch('/api/save-assessment', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    const data = await res.json().catch(() => ({}));
-    if(!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
-    return data;
-  }
-
-  async function onCheckRisk(){
+  function onCheckRisk(){
     if(!calcRisk()) return;
     saveForm();
     document.getElementById('risk-form-block').style.display = 'none';
     document.getElementById('risk-result-block').style.display = 'block';
     renderHasil();
-
-    try{
-      const saved = await saveAssessmentToDatabase();
-      console.log('[SaringKu] Assessment saved to database:', saved);
-    } catch(err){
-      // The assessment result remains usable even if the cloud write fails.
-      console.warn('[SaringKu] Assessment could not be saved; keeping local result:', err.message);
-    }
   }
 
   function editRiskAnswers(){
@@ -1726,6 +1708,7 @@
 
     document.getElementById('langEN').classList.toggle('active', currentLang === 'en');
     document.getElementById('langBM').classList.toggle('active', currentLang === 'bm');
+    updateAIChatLanguage();
     renderHasil();
     renderHomeStats();
     if(currentTab === 'plan'){
@@ -1839,16 +1822,15 @@
   function setLang(lang){
     currentLang = lang;
     applyLang();
-    refreshAIChatLanguage();
   }
 
-  /* ================= live database data (Cloudflare Pages Functions -> Neon Postgres) =================
+  /* ================= live database data (Netlify Functions -> Neon Postgres) =================
      Runs in the background after first paint. If these fail (e.g. DATABASE_URL not yet set
-     in Cloudflare, or the function isn't deployed), the embedded riskData/schemesData above keep
+     in Netlify, or the function isn't deployed), the embedded riskData/schemesData above keep
      working exactly as before — the site never breaks because of this. */
   async function loadLiveRiskData(){
     try{
-      const res = await fetch('/api/get-risk-data');
+      const res = await fetch('/.netlify/functions/get-risk-data');
       if(!res.ok) throw new Error('HTTP ' + res.status);
       const rows = await res.json();
       if(!Array.isArray(rows) || rows.length === 0) throw new Error('empty response');
@@ -1874,7 +1856,7 @@
 
   async function loadLiveSchemes(){
     try{
-      const res = await fetch('/api/get-schemes');
+      const res = await fetch('/.netlify/functions/get-schemes');
       if(!res.ok) throw new Error('HTTP ' + res.status);
       const rows = await res.json();
       if(!Array.isArray(rows) || rows.length === 0) throw new Error('empty response');
@@ -1902,27 +1884,24 @@
 
 
 
-  /* ================= AI assistant (Cloudflare /api/chat -> MiniMax) ================= */
+  /* ================= AI Health Assistant =================
+     Demo-only direct MiniMax browser integration.
+     WARNING: the API key below is visible to anyone who can inspect the page source.
+  */
+  const MINIMAX_API_KEY = 'sk-api-vPeRVBfLJrl3G65B1QKZk-UY3PIXF-MKe6XUD5sEjIaCkECOl7sDYR6H60ir2w9Fz_LtB_ATf_DlqZWGidZ0zynAmOw9hDj0yHlY4PuBeBEjNbZ5Zw7phfU';
+  const MINIMAX_API_BASE = 'https://api.minimax.io';
+  const MINIMAX_MODEL = 'MiniMax-Text-01';
   const aiChatHistory = [];
+  let aiChatWelcomed = false;
+  let aiChatBusy = false;
 
   function aiText(en,bm){ return currentLang === 'bm' ? bm : en; }
 
-  function toggleAIChat(force){
-    const panel = document.getElementById('aiChatPanel');
-    const shouldOpen = typeof force === 'boolean' ? force : !panel.classList.contains('open');
-    panel.classList.toggle('open', shouldOpen);
-    if(shouldOpen){
-      refreshAIChatLanguage();
-      ensureAIWelcome();
-      setTimeout(()=>document.getElementById('aiChatInput').focus(), 50);
-    }
-  }
-
-  function refreshAIChatLanguage(){
+  function updateAIChatLanguage(){
     const title = document.getElementById('aiChatTitle');
     if(!title) return;
     title.textContent = aiText('SaringKu AI Assistant','Pembantu AI SaringKu');
-    document.getElementById('aiChatStatus').textContent = aiText('Health information & service navigation','Maklumat kesihatan & navigasi perkhidmatan');
+    document.getElementById('aiChatStatus').textContent = aiText('Health information & service navigation','Maklumat kesihatan & panduan perkhidmatan');
     document.getElementById('aiChatNotice').textContent = aiText(
       'AI guidance is for general information only and does not replace a doctor or emergency care.',
       'Panduan AI adalah untuk maklumat umum sahaja dan tidak menggantikan doktor atau rawatan kecemasan.'
@@ -1931,51 +1910,53 @@
     renderAIChatChips();
   }
 
-  function ensureAIWelcome(){
-    const box = document.getElementById('aiChatMessages');
-    if(box.children.length) return;
-    addAIMessage('assistant', aiText(
-      'Hi — I can explain your SaringKu result, screening options and how to use this website. What would you like to know?',
-      'Hai — saya boleh menerangkan keputusan SaringKu anda, pilihan saringan dan cara menggunakan laman ini. Apa yang anda ingin tahu?'
-    ), false);
-  }
-
   function renderAIChatChips(){
     const wrap = document.getElementById('aiChatChips');
     if(!wrap) return;
     const chips = currentLang === 'bm'
-      ? ['Terangkan keputusan saya','Saringan mana sesuai?','Cara cari klinik?']
+      ? ['Terangkan keputusan saya','Saringan apa yang sesuai?','Bagaimana cari klinik?']
       : ['Explain my result','Which screening fits me?','How do I find a clinic?'];
-    wrap.innerHTML = '';
-    chips.forEach(text => {
-      const btn = document.createElement('button');
-      btn.type = 'button'; btn.className = 'ai-chat-chip'; btn.textContent = text;
-      btn.onclick = () => useAIChatChip(text);
-      wrap.appendChild(btn);
-    });
+    wrap.innerHTML = chips.map(t => `<button type="button" class="ai-chat-chip" onclick='useAIChatChip(${JSON.stringify(t)})'>${t}</button>`).join('');
+  }
+
+  function toggleAIChat(force){
+    const panel = document.getElementById('aiChatPanel');
+    const shouldOpen = typeof force === 'boolean' ? force : !panel.classList.contains('open');
+    panel.classList.toggle('open', shouldOpen);
+    if(shouldOpen){
+      updateAIChatLanguage();
+      if(!aiChatWelcomed){
+        addAIChatMessage('bot', aiText(
+          'Hi — I can explain SaringKu results, screening programmes, and how to use the clinic finder. If you have completed Check My Risk, I can use that result as context.',
+          'Hai — saya boleh menerangkan keputusan SaringKu, program saringan dan cara menggunakan pencari klinik. Jika anda sudah melengkapkan Semak Risiko, saya boleh menggunakan keputusan itu sebagai konteks.'
+        ));
+        aiChatWelcomed = true;
+      }
+      setTimeout(()=>document.getElementById('aiChatInput')?.focus(),50);
+    }
+  }
+
+  function addAIChatMessage(role,text,extraClass=''){
+    const box = document.getElementById('aiChatMessages');
+    const div = document.createElement('div');
+    div.className = `ai-msg ${role === 'user' ? 'user' : 'bot'} ${extraClass}`.trim();
+    div.textContent = text;
+    box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+    return div;
   }
 
   function useAIChatChip(text){
-    const input = document.getElementById('aiChatInput');
-    input.value = text;
-    input.focus();
+    document.getElementById('aiChatInput').value = text;
+    sendAIChat();
   }
 
-  function addAIMessage(role, content, remember=true){
-    const box = document.getElementById('aiChatMessages');
-    const el = document.createElement('div');
-    el.className = 'ai-msg ' + role;
-    el.textContent = content;
-    box.appendChild(el);
-    box.scrollTop = box.scrollHeight;
-    if(remember) aiChatHistory.push({role, content});
-    return el;
-  }
-
-  function aiContextPayload(){
+  function getAIPageContext(){
+    const state = document.getElementById('state')?.value || document.getElementById('clinicState')?.value || '';
     const profile = lastProfile ? {
       age:lastProfile.age,
       sex:lastProfile.sex,
+      state,
       household_band:lastProfile.household_band,
       is_smoker:lastProfile.is_smoker,
       has_health_risk:lastProfile.has_health_risk
@@ -1983,63 +1964,88 @@
     const risk = lastResult ? {
       age_group:lastResult.ageGroup,
       leading_risk:lastResult.headline?.[currentLang] || lastResult.headline?.en,
-      share_pct:lastResult.sharePct,
-      explanation:lastResult.info?.[currentLang] || lastResult.info?.en
+      mortality_share_pct:lastResult.sharePct,
+      explanation:lastResult.info?.[currentLang] || lastResult.info?.en,
+      checkup_comparison:lastResult.youText?.[currentLang] || lastResult.youText?.en,
+      recommendation:lastResult.recText?.[currentLang] || lastResult.recText?.en
     } : null;
-    const eligibility = Array.isArray(lastEligibility)
-      ? lastEligibility.map(({scheme,eligible}) => ({
-          program_code:scheme.id,
-          name:scheme[currentLang==='bm' ? 'name_bm' : 'name_en'],
-          eligible:Boolean(eligible),
-          provider:scheme.provider,
-          cost_rm:scheme.cost_rm,
-          summary:scheme[currentLang==='bm' ? 'copy_bm' : 'copy_en']
+    const eligible_programmes = Array.isArray(lastEligibility)
+      ? lastEligibility.filter(x=>x.eligible).map(x=>({
+          id:x.scheme.id,
+          name: currentLang === 'bm' ? x.scheme.name_bm : x.scheme.name_en,
+          provider:x.scheme.provider,
+          cost_rm:x.scheme.cost_rm
         }))
       : [];
-    return { profile, risk, eligibility };
+    return { language:currentLang, current_tab:currentTab, profile, risk, eligible_programmes };
   }
 
   async function sendAIChat(event){
-    event.preventDefault();
+    if(event) event.preventDefault();
+    if(aiChatBusy) return;
     const input = document.getElementById('aiChatInput');
-    const send = document.getElementById('aiChatSend');
-    const message = input.value.trim();
-    if(!message || send.disabled) return;
+    const text = (input.value || '').trim();
+    if(!text) return;
 
-    addAIMessage('user', message);
+    toggleAIChat(true);
     input.value = '';
-    send.disabled = true;
-    const pending = addAIMessage('assistant', aiText('Thinking…','Sedang berfikir…'), false);
-    pending.classList.add('pending');
+    addAIChatMessage('user', text);
+    aiChatHistory.push({role:'user', content:text});
+    if(aiChatHistory.length > 10) aiChatHistory.splice(0, aiChatHistory.length - 10);
+
+    aiChatBusy = true;
+    const sendBtn = document.getElementById('aiChatSend');
+    sendBtn.disabled = true;
+    const typing = addAIChatMessage('bot', aiText('Thinking…','Sedang berfikir…'),'typing');
 
     try{
-      const ctx = aiContextPayload();
-      const res = await fetch('/api/chat', {
+      const pageContext = getAIPageContext();
+      const systemPrompt = `You are SaringKu AI Assistant, a cautious health-information and service-navigation assistant for a Malaysian health-screening website.
+
+Rules:
+- Give general health information and explain SaringKu results; do not diagnose disease.
+- Do not prescribe medicines or dosages.
+- Do not present a SaringKu risk result as a medical diagnosis.
+- Use the supplied SaringKu context when relevant and do not invent eligibility, clinic, SOCSO or PeKa B40 facts.
+- Encourage professional medical care when symptoms are severe, urgent, worsening, or outside the website's scope.
+- Keep answers concise and practical.
+- Reply in ${currentLang === 'bm' ? 'Bahasa Melayu' : 'English'}.
+
+Current SaringKu page context:
+${JSON.stringify(pageContext)}`;
+      const messages = [
+        {role:'system', content:systemPrompt},
+        ...aiChatHistory.slice(0,-1).map(m=>({role:m.role, content:m.content})),
+        {role:'user', content:text}
+      ];
+      const res = await fetch(`${MINIMAX_API_BASE}/v1/text/chatcompletion_v2`, {
         method:'POST',
-        headers:{'Content-Type':'application/json'},
+        headers:{
+          'Authorization':`Bearer ${MINIMAX_API_KEY}`,
+          'Content-Type':'application/json'
+        },
         body:JSON.stringify({
-          message,
-          language:currentLang,
-          page:currentTab,
-          profile:ctx.profile,
-          risk:ctx.risk,
-          eligibility:ctx.eligibility,
-          history:aiChatHistory.slice(0,-1).slice(-8)
+          model:MINIMAX_MODEL,
+          messages,
+          temperature:0.25,
+          max_tokens:800,
+          stream:false
         })
       });
       const data = await res.json().catch(()=>({}));
-      if(!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
-      pending.remove();
-      addAIMessage('assistant', data.reply || aiText('No response received.','Tiada respons diterima.'));
+      if(!res.ok) throw new Error(data?.base_resp?.status_msg || data?.error?.message || `HTTP ${res.status}`);
+      typing.remove();
+      const reply = data?.choices?.[0]?.message?.content || aiText('Sorry, I could not generate a response.','Maaf, saya tidak dapat menjana jawapan.');
+      addAIChatMessage('bot', reply);
+      aiChatHistory.push({role:'assistant', content:reply});
+      if(aiChatHistory.length > 10) aiChatHistory.splice(0, aiChatHistory.length - 10);
     }catch(err){
-      pending.classList.remove('pending');
-      pending.textContent = aiText(
-        'I could not connect to the AI service. Please try again later.',
-        'Saya tidak dapat menyambung ke perkhidmatan AI. Sila cuba lagi kemudian.'
-      );
-      console.warn('[SaringKu] AI chat unavailable:', err.message);
+      typing.remove();
+      addAIChatMessage('bot', aiText('I could not reach the AI service just now. Please try again.','Saya tidak dapat menghubungi perkhidmatan AI sekarang. Sila cuba lagi.'));
+      console.warn('[SaringKu AI]', err);
     }finally{
-      send.disabled = false;
+      aiChatBusy = false;
+      sendBtn.disabled = false;
       input.focus();
     }
   }
@@ -2072,6 +2078,7 @@
 </script>
 
 
+<!-- AI Health Assistant -->
 <button class="ai-chat-launcher" id="aiChatLauncher" onclick="toggleAIChat()" aria-label="Open AI Health Assistant" title="AI Health Assistant">✦</button>
 <aside class="ai-chat-panel" id="aiChatPanel" aria-live="polite">
   <div class="ai-chat-head">
