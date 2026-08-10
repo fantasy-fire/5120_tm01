@@ -1331,12 +1331,40 @@
     document.getElementById('h-rec').textContent = lastResult.recText[currentLang];
   }
 
-  function onCheckRisk(){
+  async function saveAssessmentToDatabase(){
+    const payload = {
+      age: Number(document.getElementById('age').value),
+      sex: document.getElementById('sex').value,
+      state: document.getElementById('state').value,
+      smoking: document.getElementById('smoke').value,
+      lastCheck: document.getElementById('lastCheck').value,
+      householdBand: document.getElementById('householdBand').value,
+    };
+
+    const res = await fetch('/api/save-assessment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json().catch(() => ({}));
+    if(!res.ok) throw new Error(data.error || ('HTTP ' + res.status));
+    return data;
+  }
+
+  async function onCheckRisk(){
     if(!calcRisk()) return;
     saveForm();
     document.getElementById('risk-form-block').style.display = 'none';
     document.getElementById('risk-result-block').style.display = 'block';
     renderHasil();
+
+    try{
+      const saved = await saveAssessmentToDatabase();
+      console.log('[SaringKu] Assessment saved to database:', saved);
+    } catch(err){
+      // Keep showing the assessment result even if the database write fails.
+      console.warn('[SaringKu] Assessment could not be saved; keeping local result:', err.message);
+    }
   }
 
   function editRiskAnswers(){
@@ -1830,7 +1858,7 @@
      working exactly as before — the site never breaks because of this. */
   async function loadLiveRiskData(){
     try{
-      const res = await fetch('/.netlify/functions/get-risk-data');
+      const res = await fetch('/api/get-risk-data');
       if(!res.ok) throw new Error('HTTP ' + res.status);
       const rows = await res.json();
       if(!Array.isArray(rows) || rows.length === 0) throw new Error('empty response');
@@ -1856,7 +1884,7 @@
 
   async function loadLiveSchemes(){
     try{
-      const res = await fetch('/.netlify/functions/get-schemes');
+      const res = await fetch('/api/get-schemes');
       if(!res.ok) throw new Error('HTTP ' + res.status);
       const rows = await res.json();
       if(!Array.isArray(rows) || rows.length === 0) throw new Error('empty response');
