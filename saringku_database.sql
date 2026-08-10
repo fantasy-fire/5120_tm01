@@ -155,7 +155,8 @@ CREATE TABLE Clinic (
     ON DELETE CASCADE
 
 );
-
+ALTER TABLE "user_profile"
+ADD COLUMN household_income_band VARCHAR(20);
 
 -- Check tables
 SELECT table_name
