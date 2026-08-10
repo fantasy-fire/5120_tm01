@@ -3,6 +3,7 @@ import { neon } from '@neondatabase/serverless';
 const allowedSexes = new Set(['male', 'female']);
 const allowedSmoking = new Set(['never', 'sometimes', 'daily']);
 const allowedLastCheck = new Set(['lt1', '1to5', 'gt5']);
+const allowedHouseholdBands = new Set(['B40', 'M40', 'T20']);
 
 function json(body, status = 200, headers = {}) {
   return new Response(JSON.stringify(body), {
@@ -44,6 +45,7 @@ export async function onRequest(context) {
   const state = String(body.state || '').trim();
   const smoking = String(body.smoking || '').toLowerCase();
   const lastCheck = String(body.lastCheck || '');
+  const householdBand = String(body.householdBand || body.household_income_band || '').toUpperCase();
 
   if (!Number.isInteger(age) || age < 0 || age > 120) {
     return json({ error: 'Age must be a whole number between 0 and 120.' }, 400);
@@ -59,6 +61,9 @@ export async function onRequest(context) {
   }
   if (!allowedLastCheck.has(lastCheck)) {
     return json({ error: 'Last check-up band is invalid.' }, 400);
+  }
+  if (!allowedHouseholdBands.has(householdBand)) {
+    return json({ error: 'Household income band must be B40, M40 or T20.' }, 400);
   }
 
   const ageGroup = ageGroupFor(age);
@@ -77,8 +82,8 @@ export async function onRequest(context) {
         LIMIT 1
       ),
       new_user AS (
-        INSERT INTO user_profile (age, sex, state, created_at)
-        SELECT ${age}, ${sex}, ${state}, CURRENT_TIMESTAMP
+        INSERT INTO user_profile (age, sex, state, household_income_band, created_at)
+        SELECT ${age}, ${sex}, ${state}, ${householdBand}, CURRENT_TIMESTAMP
         FROM selected_mortality
         RETURNING user_id
       ),
